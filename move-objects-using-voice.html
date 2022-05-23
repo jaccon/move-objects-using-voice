@@ -1,0 +1,162 @@
+<!--JavaScript - Move Object with Arrow Keys using JavaScript Function.-->
+<html>
+    <head>
+        <title>JavaScript - Move Object with Arrow Keys using JavaScript Function.</title>
+        <style>
+          #myObj {
+            width: 200px;
+            height: 200px;
+            background: #ff0000;
+            border-radius: 50%;
+          }
+
+         
+        </style>
+        <script type="text/javascript">
+
+
+
+
+            var objImage = null;
+            function init() {
+                objImage = document.getElementById("myObj");
+                objImage.style.position = "relative";
+                objImage.style.left = "0px";
+                objImage.style.top = "0px";
+            }
+
+            function getKeyAndMove(e) {
+                var key_code = e.which || e.keyCode;
+                switch (key_code) {
+                    case 37: //left arrow key
+                        moveLeft();
+                        break;
+                    case 38: //Up arrow key
+                        moveUp();
+                        break;
+                    case 39: //right arrow key
+                        moveRight();
+                        break;
+                    case 40: //down arrow key
+                        moveDown();
+                        break;
+                }
+            }
+            function moveLeft() {
+                objImage.style.left = parseInt(objImage.style.left) - 100 + "px";
+            }
+            function moveUp() {
+                objImage.style.top = parseInt(objImage.style.top) - 100 + "px";
+            }
+            function moveRight() {
+                objImage.style.left = parseInt(objImage.style.left) + 100 + "px";
+            }
+            function moveDown() {
+                objImage.style.top = parseInt(objImage.style.top) + 100   + "px";
+            }
+
+
+            window.onload = init;
+
+        </script>
+    </head>
+
+    <body onkeydown="getKeyAndMove(event)">
+
+        <p id="output"></p>
+        <button id="start"> Start! </button>
+
+
+        <div id="myObj"> </div>
+
+        <script>
+          (() => {
+            
+            const startBtn = document.querySelector('#start');
+            const output = document.querySelector('#output');
+
+            // 
+            function getKeyAndMove(e) {
+                var key_code = e.which || e.keyCode;
+                switch (key_code) {
+                    case 37: //left arrow key
+                        moveLeft();
+                        break;
+                    case 38: //Up arrow key
+                        moveUp();
+                        break;
+                    case 39: //right arrow key
+                        moveRight();
+                        break;
+                    case 40: //down arrow key
+                        moveDown();
+                        break;
+                }
+            }
+            function moveLeft() {
+                objImage.style.left = parseInt(objImage.style.left) - 100 + "px";
+            }
+            function moveUp() {
+                objImage.style.top = parseInt(objImage.style.top) - 100 + "px";
+            }
+            function moveRight() {
+                objImage.style.left = parseInt(objImage.style.left) + 100 + "px";
+            }
+            function moveDown() {
+                objImage.style.top = parseInt(objImage.style.top) + 100   + "px";
+            }
+            // 
+    
+            function start() {
+              
+              const recognition = new webkitSpeechRecognition();
+
+              recognition.interimResults = true;
+              recognition.lang = "pt-BR";
+              recognition.continuous = true;
+              recognition.start();
+
+
+              recognition.onresult = function(event) {
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                  if (event.results[i].isFinal) {
+                    const content = event.results[i][0].transcript.trim();
+                    output.textContent = content;
+                    console.log(content);
+                    document.getElementById("myObj").style.backgroundColor= content;
+
+                    switch (content) {
+                        case 'esquerda': //left arrow key
+                            moveLeft();
+                            break;
+                        case 'duas esquerdas': //left arrow key
+                            moveLeft();
+                            moveLeft();
+                            break;
+                        case 'cima': //Up arrow key
+                            moveUp();
+                            break;
+                        case 'direita': //right arrow key
+                            moveRight();
+                            break;
+                        case 'duas direita': //right arrow key
+                            moveRight();
+                            moveRight();
+                            break;
+                        case 'baixo': //down arrow key
+                            moveDown();
+                            break;
+                    }
+
+
+                  }
+                }
+              };
+            };
+            startBtn.addEventListener('click', () => start());
+          })();
+
+        </script>
+
+    </body>
+</html>
